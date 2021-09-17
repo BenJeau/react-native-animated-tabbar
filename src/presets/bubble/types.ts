@@ -39,6 +39,7 @@ export interface BubbleTabBarItemConfig {
      * @type {string}
      */
     inactiveColor: string;
+    inactiveSameAsCurrentlyActive: boolean;
   };
   background: {
     /**
@@ -51,6 +52,9 @@ export interface BubbleTabBarItemConfig {
      * @type {string}
      */
     inactiveColor: string;
+  };
+  tab: {
+    backgroundColor: string;
   };
 }
 

@@ -1,5 +1,7 @@
 import React, { useMemo, memo } from 'react';
-import { View, ViewStyle, StyleProp } from 'react-native';
+import { ViewStyle, StyleProp } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { interpolateColor } from 'react-native-redash/lib/module/v1';
 // @ts-ignore 😞
 import isEqual from 'lodash.isequal';
 import BubbleTabBarItem from './item';
@@ -59,22 +61,35 @@ const BubbleTabBarComponent = ({
   );
   //#endregion
 
+  const outputRange = useMemo(
+    () => tabs.map(({ tab }) => tab.backgroundColor),
+    [tabs]
+  );
+
+  const inputRange = useMemo(() => tabs.map((_, index) => index), [tabs]);
+
+  const backgroundColor = interpolateColor(selectedIndex, {
+    inputRange,
+    outputRange,
+  });
+
   //#region styles
   const containerStyle = useMemo<StyleProp<ViewStyle>>(
     () => [
       styles.container,
       containerStyleOverride,
       {
+        backgroundColor,
         flexDirection: isRTL ? 'row-reverse' : 'row',
       },
     ],
-    [containerStyleOverride, isRTL]
+    [backgroundColor, containerStyleOverride, isRTL]
   );
   //#endregion
 
   // render
   return (
-    <View style={containerStyle}>
+    <Animated.View style={containerStyle}>
       {tabs.map(({ key, title, ...configs }, index) => {
         return (
           <RawButton
@@ -98,7 +113,7 @@ const BubbleTabBarComponent = ({
           </RawButton>
         );
       })}
-    </View>
+    </Animated.View>
   );
 };
 
