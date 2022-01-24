@@ -140,6 +140,7 @@ export type AnimatedTabBarProps<T extends PresetEnum = 'bubble'> = {
   onTabPress?: any;
   onTabLongPress?: any;
   safeAreaInsets?: Insets;
+  safeAreaBottomPaddingOrMargin?: "padding" | "margin"
 } & Omit<TabBarConfigurableProps, 'onLongPress'> &
   ExtractPresetConfig<T>;
 
