@@ -34,7 +34,6 @@ export function AnimatedTabBar<T extends PresetEnum>(
     onTabLongPress,
     style: overrideStyle,
     safeAreaInsets: overrideSafeAreaInsets,
-    safeAreaBottomPaddingOrMargin = "padding",
     ...rest
   } = props;
 
@@ -137,7 +136,7 @@ export function AnimatedTabBar<T extends PresetEnum>(
     () => ({
       // @ts-ignore
       ...overrideStyle,
-      ...(safeAreaBottomPaddingOrMargin === "margin" ? {paddingBottom: safeBottomArea} : {marginBottom: safeBottomArea}),
+      bottom: safeBottomArea,
     }),
     [overrideStyle, safeBottomArea]
   );
